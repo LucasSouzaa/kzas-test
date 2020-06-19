@@ -16,18 +16,16 @@ class UploadController {
 
     public function processRequest()
     {
-        var_dump($this->requestMethod);
-
-        switch ($this->requestMethod) {
-            case 'POST':
+        if ($this->requestMethod === 'POST') {
+            if(!isset($_POST['_method'])){
                 $response = $this->handleUpload();
-                break;
-            case 'DELETE':
+            } else if (isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
                 $response = $this->handleDelete();
-                break;
-            default:
+            } else {
                 $response = ErrorResponses::notAllowed();
-                break;
+            }
+        } else {
+            $response = ErrorResponses::notAllowed();
         }
         header($response['status_code_header']);
         if ($response['body']) {
@@ -61,7 +59,7 @@ class UploadController {
         $body = json_encode($this->uploads->removeFile($_POST['file_path']));
 
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = null;
+        $response['body'] = $body;
 
         return $response;
 

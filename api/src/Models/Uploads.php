@@ -12,6 +12,12 @@ class Uploads {
 
             $path = 'uploads/';
 
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+
             $date = new \DateTime();
 
             $file_name = $date->getTimestamp().$file['name'];
@@ -47,7 +53,10 @@ class Uploads {
         try
         {
 
-            unlink($file);
+            if(file_exists($file)){
+                unlink($file);
+            }
+
             return [
                 'success' => true,
                 'message' => "Removido com sucesso"
@@ -55,7 +64,6 @@ class Uploads {
 
         } catch (\Exception $e)
         {
-
             return [
                 'success' => false,
                 'message' => $e->getMessage()
