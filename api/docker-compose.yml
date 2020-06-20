@@ -5,14 +5,14 @@ services:
     container_name: nginx
     restart: always
     ports:
-     - "7000:80"
-    volumes: 
-     - "./:/www"
-     - "./site.conf:/etc/nginx/conf.d/site.conf"
+      - "7000:80"
+    volumes:
+      - "./:/www"
+      - "./site.conf:/etc/nginx/conf.d/site.conf"
     links:
-    - php
+      - php
   php:
-    image: php:7.3-fpm
+    image: jguyomard/laravel-php:7.3
     container_name: php-fpm
     volumes:
       - "./:/www"
