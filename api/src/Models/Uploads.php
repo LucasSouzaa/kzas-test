@@ -30,7 +30,12 @@ class Uploads {
 
             move_uploaded_file($file_tmp, $file);
 
-            $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]".$file;
+            $protocol = 'http://';
+            if( isset($_SERVER['HTTPS']) ) {
+                $protocol = 'https://';
+            }
+
+            $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]".$file;
 
             return [
                 'success'       => true,
