@@ -1,16 +1,16 @@
 # kzas-test
 
-#####Url de acesso:
+##### Url de acesso:
     https://lucassouza.dev/kzas-test/
     
-#####Usuarios para acesso:
+##### Usuarios para acesso:
     usuario: admin@admin.com
     senha: password
     
-####Rodando localmente
+#### Rodando localmente
     git clone https://github.com/LucasSouzaa/kzas-test.git
     
-######Projeto Laravel
+###### Projeto Laravel
     
     cd administration-panel
     
@@ -22,7 +22,7 @@
     
     enjoy!
     
-######Projeto Api
+###### Projeto Api
     
     cd api
     
