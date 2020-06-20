@@ -116,12 +116,12 @@
           var logo_img = $('#logo-img');
 
           if(logo_img.data('path')) {
-            handleDelete("http://docker.localhost:7000", logo_img.data('path'));
+            handleDelete("{{env('API_UPLOAD_URL')}}", logo_img.data('path'));
             $('input[name=logo]').val('');
           }
 
           $('#logo-loader').css('display', 'flex');
-          handleUpload("http://docker.localhost:7000", e.target.files[0], {
+          handleUpload("{{env('API_UPLOAD_URL')}}", e.target.files[0], {
             response: function (data) {
               console.log(data);
               $('#logo-loader').css('display', 'none');

@@ -27,7 +27,7 @@ class CompanyUpdateRequest extends FormRequest {
             'name'    => 'required',
             'email'   => 'required|email|unique:companies,email,' . $this->route('company'),
             'website' => 'required|url',
-            'logo'   => 'required|url',
+            'logo'   => 'required',
         ];
     }
 
@@ -41,7 +41,6 @@ class CompanyUpdateRequest extends FormRequest {
             'website.required' => 'O website da empresa é obrigatório.',
             'website.url'      => 'Digite uma url valida.',
             'logo.required'    => 'A logo da empresa é obrigatória.',
-            'logo.url'         => 'Url invalida do logo.',
         ];
     }
 }
