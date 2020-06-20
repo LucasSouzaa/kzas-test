@@ -37227,6 +37227,8 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./upload */ "./resources/js/upload.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37271,6 +37273,50 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/upload.js":
+/*!********************************!*\
+  !*** ./resources/js/upload.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.handleUpload = function (url, file, callback) {
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+  var formData = new FormData();
+  formData.append('logo', file);
+  request.send(formData);
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      if (request.status === 200) {
+        var response = JSON.parse(request.responseText);
+        callback.response(response);
+      }
+    }
+  };
+};
+
+window.handleDelete = function (url, path) {
+  var request = new XMLHttpRequest();
+  request.open("POST", url);
+  var formData = new FormData();
+  formData.append('file_path', path);
+  formData.append('_method', 'DELETE');
+  request.send(formData);
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      if (request.status === 200) {
+        var response = JSON.parse(request.responseText);
+        console.log(response);
+      }
+    }
+  };
+};
 
 /***/ }),
 

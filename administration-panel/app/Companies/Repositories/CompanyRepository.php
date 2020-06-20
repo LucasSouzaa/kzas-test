@@ -68,12 +68,12 @@ class CompanyRepository {
         try
         {
             $company = $this->model->find($id);
+            $company->employees()->delete();
             $company->delete();
         } catch (Exception $e)
         {
             DB::rollBack();
-
-
+            toastr()->error('Falha ao remover empresa.');
             return false;
         }
 

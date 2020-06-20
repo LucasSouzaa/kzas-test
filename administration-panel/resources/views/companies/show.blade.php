@@ -24,7 +24,7 @@
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 d-flex flex-column align-items-center">
-                                <div class="logo-border d-flex flex-column align-items-center">
+                                <div class="w-100 logo-border d-flex flex-column align-items-center">
                                     <img src="{{$company->logo}}" class="logo-placeholder" />
                                 </div>
 

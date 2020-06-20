@@ -19,9 +19,11 @@
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 d-flex flex-column align-items-center">
-                                <div class="logo-border {{$errors->has('logo') ? 'is-invalid' : ''}} {{!is_null(old('logo')) && !$errors->has('logo') ? 'is-valid' : ''}} d-flex flex-column align-items-center">
-                                    <img src="{{ is_null(old('logo')) ? $company->logo : old('logo') }}" class="logo-placeholder" />
-                                    <p class="text-black-50">Alterar logo</p>
+                                <div id="logo-uploader" class="w-100 logo-border {{$errors->has('logo') ? 'is-invalid' : ''}} {{!is_null(old('logo')) && !$errors->has('logo') ? 'is-valid' : ''}} d-flex flex-column align-items-center">
+                                    <img src="{{ is_null(old('logo')) ? $company->logo : old('logo') }}" class="logo-placeholder" data-path="" id="logo-img" />
+                                    <p class="text-black-50 mt-2">Alterar logo</p>
+
+                                    <input type="file" hidden id="upload-input" name="upload" accept="image/*">
                                 </div>
 
                                 @if($errors->has('logo'))
@@ -29,6 +31,10 @@
                                         <small>{{$errors->first('logo')}}</small>
                                     </div>
                                 @endif
+
+                                <div class="full-div-loader" id="logo-loader">
+                                    <div class="loader"></div>
+                                </div>
                             </div>
                             <div class="col-sm-12 col-md-8 mt-3 mt-md-0">
                                 <form action="{{route('companies.update', $company->id)}}" method="POST">
@@ -102,6 +108,29 @@
 
 @section('js')
     <script>
+      $('#logo-uploader').click(function() {
+        $('#upload-input').click();
+      });
 
+      $('#upload-input').change(function(e) {
+
+        var logo_img = $('#logo-img');
+
+        if(logo_img.data('path')) {
+          handleDelete("http://docker.localhost:7000", logo_img.data('path'));
+          $('input[name=logo]').val('');
+        }
+
+        $('#logo-loader').css('display', 'flex');
+        handleUpload("http://docker.localhost:7000", e.target.files[0], {
+          response: function (data) {
+            console.log(data);
+            $('#logo-loader').css('display', 'none');
+            logo_img.attr('src', data.url);
+            logo_img.data('path', data.file_location);
+            $('input[name=logo]').val(data.url);
+          }
+        });
+      })
     </script>
 @endsection
