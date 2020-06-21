@@ -9,6 +9,5 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-// pass the request method and user ID to the PersonController and process the HTTP request:
 $controller = new UploadController($requestMethod);
 $controller->processRequest();
